@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --parchment: #f4e4bc;
+  --ink: #1a1510;
+  --gold: #c9a227;
+  --red: #8b0000;
+  --forest: #2d5016;
+  --background: #faf6ed;
+  --foreground: #1a1510;
+}
+
+body {
+  font-family: 'Crimson Text', Georgia, serif;
+  background: var(--background);
+  color: var(--foreground);
+}
+
+.font-medieval {
+  font-family: 'Cinzel', serif;
+}
+
+@layer components {
+  .card-parchment {
+    @apply bg-[var(--parchment)] border-2 border-[var(--ink)]/20 shadow-lg rounded-lg;
+  }
+  .btn-gold {
+    @apply bg-[var(--gold)] text-[var(--ink)] font-medieval font-semibold px-4 py-2 rounded
+           hover:bg-amber-600 transition-colors;
+  }
+}
