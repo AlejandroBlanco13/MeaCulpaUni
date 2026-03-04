@@ -7,6 +7,7 @@
 :root {
   --parchment: #f4e4bc;
   --ink: #1a1510;
+  --ink-20: rgba(26, 21, 16, 0.2);
   --gold: #c9a227;
   --red: #8b0000;
   --forest: #2d5016;
@@ -26,7 +27,8 @@ body {
 
 @layer components {
   .card-parchment {
-    @apply bg-[var(--parchment)] border-2 border-[var(--ink)]/20 shadow-lg rounded-lg;
+    @apply bg-[var(--parchment)] border-2 shadow-lg rounded-lg;
+    border-color: var(--ink-20);
   }
   .btn-gold {
     @apply bg-[var(--gold)] text-[var(--ink)] font-medieval font-semibold px-4 py-2 rounded
