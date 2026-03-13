@@ -5,20 +5,52 @@
 @tailwind utilities;
 
 :root {
-  --parchment: #f4e4bc;
-  --ink: #1a1510;
-  --ink-20: rgba(26, 21, 16, 0.2);
-  --gold: #c9a227;
-  --red: #8b0000;
-  --forest: #2d5016;
-  --background: #faf6ed;
-  --foreground: #1a1510;
+  /* Dark medieval fantasy theme inspirado en tu ejemplo */
+  --background: #050609; /* fondo casi negro con tinte frío */
+  --foreground: #e5dfd0; /* texto principal claro */
+
+  --parchment: #1e1410; /* tarjetas tipo pergamino oscuro */
+  --parchment-soft: #241813;
+
+  --ink: #f9f5e9; /* texto sobre fondos oscuros */
+  --ink-20: rgba(249, 245, 233, 0.2);
+
+  --gold: #f4b544;
+  --gold-soft: #e09a3c;
+  --red: #b3262b;
+  --forest: #234537;
+
+  /* Tonos café/rojizos para el fondo rocoso/fuego */
+  --coffee-cream: #120f16;
+  --coffee-mid: #1c151f;
+  --coffee-dark: #26151a;
+  --coffee-ink: rgba(0, 0, 0, 0.55);
 }
 
+/* Fondo oscuro con textura sutil, acorde al dragón de fuego */
 body {
   font-family: 'Crimson Text', Georgia, serif;
-  background: var(--background);
   color: var(--foreground);
+  min-height: 100vh;
+  background-color: var(--background);
+  background-image:
+    radial-gradient(circle at top, rgba(244, 181, 68, 0.12), transparent 55%),
+    radial-gradient(circle at bottom, rgba(179, 38, 43, 0.18), transparent 55%),
+    repeating-linear-gradient(
+      115deg,
+      transparent,
+      transparent 3px,
+      rgba(0, 0, 0, 0.45) 3px,
+      rgba(0, 0, 0, 0.45) 4px
+    ),
+    linear-gradient(
+      160deg,
+      var(--coffee-dark) 0%,
+      var(--coffee-mid) 40%,
+      #090712 75%,
+      #050609 100%
+    );
+  background-attachment: fixed;
 }
 
 .font-medieval {
@@ -28,10 +60,25 @@ body {
 @layer components {
   .card-parchment {
     @apply bg-[var(--parchment)] border-2 shadow-lg rounded-lg;
-    border-color: var(--ink-20);
+    border-color: rgba(0, 0, 0, 0.7);
+    box-shadow:
+      0 18px 35px rgba(0, 0, 0, 0.7),
+      inset 0 0 25px rgba(0, 0, 0, 0.65);
   }
   .btn-gold {
-    @apply bg-[var(--gold)] text-[var(--ink)] font-medieval font-semibold px-4 py-2 rounded
-           hover:bg-amber-600 transition-colors;
+    @apply bg-[var(--gold)] text-[var(--background)] font-medieval font-semibold px-4 py-2 rounded
+           hover:bg-[var(--gold-soft)] transition-colors;
+  }
+  /* Efecto de \"levantar\" el texto al pasar el mouse */
+  .text-highlight-hover {
+    @apply inline-block transition-[transform,color,text-shadow] duration-200 ease-out;
+    transform-origin: center;
+  }
+  .text-highlight-hover:hover {
+    transform: translateY(-0.08em) scale(1.03);
+    color: var(--gold);
+    text-shadow:
+      0 0.06em 0 rgba(0, 0, 0, 0.3),
+      0 0.12em 0.18em rgba(0, 0, 0, 0.35);
   }
 }
