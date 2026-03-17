@@ -23,6 +23,7 @@ import { cn } from "@/lib/utils";
 
 const nav = [
   { href: "/", label: "Inicio", icon: Swords },
+  { href: "/leyenda", label: "La Leyenda", icon: Swords },
   { href: "/inventario", label: "Inventario", icon: Package },
   { href: "/noticias", label: "Noticias", icon: Newspaper },
   { href: "/personajes", label: "Personajes", icon: Users },
@@ -31,6 +32,8 @@ const nav = [
   { href: "/economia", label: "Economía", icon: Coins },
   { href: "/nivel", label: "Nivel", icon: Shield },
 ];
+
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 export function AppShell({
   session,
@@ -42,6 +45,12 @@ export function AppShell({
   const router = useRouter();
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
+
+  useScrollReveal();
+
+  if (pathname === "/leyenda" || pathname === "/") {
+    return <>{children}</>;
+  }
 
   async function handleSignOut() {
     const supabase = createClient();
@@ -117,14 +126,6 @@ export function AppShell({
                     >
                       <LogIn className="w-4 h-4" />
                       Entrar
-                    </Link>
-                    <Link
-                      href="/registro"
-                      onClick={() => setMenuOpen(false)}
-                      className="btn-gold flex items-center justify-center gap-2 px-3 py-2 rounded-md"
-                    >
-                      <UserPlus className="w-4 h-4" />
-                      Registrarse
                     </Link>
                   </>
                 )}
