@@ -1651,6 +1651,22 @@ body {
 .login-register-link a:hover {
   color: var(--leyenda-gold-l);
 }
+.login-register-link button {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  color: var(--leyenda-gold);
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.3s;
+}
+.login-register-link button:hover {
+  color: var(--leyenda-gold-l);
+}
 
 /* Success */
 .login-success-msg {
@@ -1702,4 +1718,45 @@ body {
   .login-form-side {
     padding: 2.5rem 1.5rem;
   }
+}
+
+/* RPG hub (REALMS-style landing para sesión iniciada) */
+.realms-hero-title {
+  background: linear-gradient(180deg, #fde68a 0%, #f59e0b 38%, #92400e 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 4px 28px rgba(0, 0, 0, 0.9));
+}
+.realms-btn {
+  clip-path: polygon(14px 0%, calc(100% - 14px) 0%, 100% 50%, calc(100% - 14px) 100%, 14px 100%, 0% 50%);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.realms-btn:hover {
+  transform: translateY(-2px);
+}
+.realms-btn-primary {
+  background: linear-gradient(180deg, #1a1410 0%, #0a0806 100%);
+  border: 1px solid rgba(245, 158, 11, 0.55);
+  box-shadow: 0 0 24px rgba(245, 158, 11, 0.12);
+}
+.realms-btn-primary:hover {
+  border-color: rgba(251, 191, 36, 0.8);
+  box-shadow: 0 0 32px rgba(245, 158, 11, 0.22);
+}
+.realms-btn-outline {
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(245, 158, 11, 0.5);
+}
+.realms-btn-outline:hover {
+  background: rgba(0, 0, 0, 0.55);
+  border-color: rgba(251, 191, 36, 0.7);
+}
+.realms-play-btn {
+  border: 1px solid rgba(245, 158, 11, 0.55);
+  border-radius: 2px;
+  background: rgba(0, 0, 0, 0.35);
+}
+.realms-play-btn:hover {
+  background: rgba(245, 158, 11, 0.12);
 }

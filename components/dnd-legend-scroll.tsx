@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useEffect, useRef, type MouseEvent } from "react";
+import { useState, useCallback, useEffect, useRef, type MouseEvent as ReactMouseEvent } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { FireDivider } from "@/components/FireDivider";
@@ -72,7 +72,7 @@ export function DndLegendScroll() {
   const mouseXRef = useRef(0);
   const draggingRef = useRef(false);
 
-  const handleHeroMouseMove = useCallback((e: MouseEvent<HTMLDivElement>) => {
+  const handleHeroMouseMove = useCallback((e: ReactMouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
     const relativeX = (e.clientX - rect.left) / rect.width;
     const relativeY = (e.clientY - rect.top) / rect.height;
@@ -186,11 +186,11 @@ export function DndLegendScroll() {
   }, [goTo]);
 
   useEffect(() => {
-    const handleMouseDown = (e: MouseEvent) => {
+    const handleMouseDown = (e: globalThis.MouseEvent) => {
       mouseXRef.current = e.clientX;
       draggingRef.current = true;
     };
-    const handleMouseUp = (e: MouseEvent) => {
+    const handleMouseUp = (e: globalThis.MouseEvent) => {
       if (!draggingRef.current) return;
       draggingRef.current = false;
       const dx = e.clientX - mouseXRef.current;
