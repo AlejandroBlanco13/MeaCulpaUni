@@ -10,11 +10,15 @@ const config: Config = {
     extend: {
       colors: {
         dnd: {
-          parchment: "#f4e4bc",
-          ink: "#1a1510",
-          gold: "#c9a227",
-          red: "#8b0000",
-          forest: "#2d5016",
+          /* Mantener nombres pero con nueva paleta oscura */
+          parchment: "#1e1410",
+          ink: "#f9f5e9",
+          gold: "#f4b544",
+          red: "#b3262b",
+          forest: "#234537",
+          "coffee-cream": "#120f16",
+          "coffee-mid": "#1c151f",
+          "coffee-dark": "#26151a",
         },
       },
       fontFamily: {
