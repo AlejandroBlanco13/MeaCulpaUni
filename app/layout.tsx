@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { getSession } from "@/lib/auth";
 import { AppShell } from "@/components/app-shell";
+import { GlobalBackground } from "@/components/global-background";
 import "./globals.css";
 import "../styles/scrollReveal.css";
 
@@ -18,6 +19,7 @@ export default async function RootLayout({
   return (
     <html lang="es">
       <body className="min-h-screen antialiased">
+        <GlobalBackground />
         <AppShell session={session}>{children}</AppShell>
       </body>
     </html>
