@@ -7,10 +7,12 @@ export function ComprarButton({
   productId,
   stock,
   price,
+  canAfford,
 }: {
   productId: string;
   stock: number;
   price: number;
+  canAfford: boolean;
 }) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
@@ -38,11 +40,12 @@ export function ComprarButton({
       <button
         type="button"
         onClick={comprar}
-        disabled={stock <= 0 || loading}
+        disabled={stock <= 0 || loading || !canAfford}
         className="text-sm btn-gold py-1 px-3"
       >
-        {stock <= 0 ? "Sin stock" : loading ? "Comprando..." : "Comprar"}
+        {stock <= 0 ? "Sin stock" : !canAfford ? "Saldo insuficiente" : loading ? "Comprando..." : "Comprar"}
       </button>
+      {!canAfford && stock > 0 && <p className="mt-1 text-xs text-amber-200/80">Necesitas más monedas para este objeto.</p>}
       {error && <p className="text-dnd-red text-xs mt-1">{error}</p>}
     </div>
   );

@@ -52,7 +52,7 @@ export function AppShell({
 
   /* La mesa (/) lleva su propia cabecera estilo landing; el resto usa menú hamburguesa */
   if (pathname === "/leyenda" || pathname === "/login" || pathname === "/") {
-    return <>{children}</>;
+    return <div className="relative z-10 min-h-screen">{children}</div>;
   }
 
   async function handleSignOut() {
@@ -62,7 +62,7 @@ export function AppShell({
   }
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="relative z-10 flex min-h-screen flex-col">
       {/* Navbar: botón hamburguesa arriba a la derecha con Entrar / Registrarse dentro */}
       <header className="fixed inset-x-0 top-0 z-50 bg-gradient-to-b from-black/75 via-black/40 to-transparent">
         <div className="mx-auto flex h-14 items-center justify-end pr-3 sm:pr-6">

@@ -6,7 +6,7 @@
 
 :root {
   /* Dark medieval fantasy theme inspirado en tu ejemplo */
-  --background: #050609; /* fondo casi negro con tinte frío */
+  --background: #0f0806; /* base cálida (café muy oscuro), sin tinte púrpura */
   --foreground: #e5dfd0; /* texto principal claro */
 
   --parchment: #1e1410; /* tarjetas tipo pergamino oscuro */
@@ -20,10 +20,10 @@
   --red: #b3262b;
   --forest: #234537;
 
-  /* Tonos café/rojizos para el fondo rocoso/fuego */
-  --coffee-cream: #120f16;
-  --coffee-mid: #1c151f;
-  --coffee-dark: #26151a;
+  /* Tonos café + rojo para el fondo (caliente, coherente con homepage Mea Culpa) */
+  --coffee-cream: #1a0f0a;
+  --coffee-mid: #2a1510;
+  --coffee-dark: #3a1a12;
   --coffee-ink: rgba(0, 0, 0, 0.55);
 
   /* Leyenda (D&D horizontal scroll) */
@@ -39,30 +39,133 @@
   --leyenda-ember: #FF6B00;
 }
 
-/* Fondo oscuro con textura sutil, acorde al dragón de fuego */
+/* Color base; capas visuales en .global-bg-stack (componente GlobalBackground) */
 body {
   font-family: 'Crimson Text', Georgia, serif;
   color: var(--foreground);
   min-height: 100vh;
   background-color: var(--background);
+}
+
+/* --- Fondo global medieval: gradientes + pergamino + grunge + viñeta + niebla + marco --- */
+.global-bg-stack {
+  isolation: isolate;
+}
+
+.global-bg-layer {
+  position: absolute;
+  inset: 0;
+}
+
+/* Base: gradiente cálido + rejilla sutil */
+.global-bg-base {
   background-image:
-    radial-gradient(circle at top, rgba(244, 181, 68, 0.12), transparent 55%),
-    radial-gradient(circle at bottom, rgba(179, 38, 43, 0.18), transparent 55%),
+    radial-gradient(circle at 50% -10%, rgba(244, 181, 68, 0.12), transparent 52%),
+    radial-gradient(circle at 80% 100%, rgba(179, 38, 43, 0.18), transparent 50%),
     repeating-linear-gradient(
       115deg,
       transparent,
       transparent 3px,
-      rgba(0, 0, 0, 0.45) 3px,
-      rgba(0, 0, 0, 0.45) 4px
+      rgba(40, 15, 10, 0.28) 3px,
+      rgba(40, 15, 10, 0.28) 4px
     ),
     linear-gradient(
       160deg,
       var(--coffee-dark) 0%,
-      var(--coffee-mid) 40%,
-      #090712 75%,
-      #050609 100%
+      var(--coffee-mid) 38%,
+      #1a0c08 72%,
+      var(--background) 100%
     );
   background-attachment: fixed;
+}
+
+/* Textura tipo pergamino (ruido SVG, bajo peso) */
+.global-bg-parchment {
+  opacity: 0.07;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'%3E%3Cfilter id='a'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23a)'/%3E%3C/svg%3E");
+  background-size: 256px 256px;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
+/* Grunge: manchas y desgaste */
+.global-bg-grunge {
+  opacity: 0.45;
+  background-image:
+    radial-gradient(ellipse 90% 70% at 10% 20%, rgba(0, 0, 0, 0.35), transparent 45%),
+    radial-gradient(ellipse 70% 50% at 90% 80%, rgba(80, 20, 10, 0.2), transparent 50%),
+    radial-gradient(circle at 50% 50%, transparent 40%, rgba(0, 0, 0, 0.25) 100%);
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+
+/* Centro más claro / bordes más oscuros: legibilidad del UI */
+.global-bg-vignette {
+  background: radial-gradient(
+    ellipse 72% 58% at 50% 48%,
+    rgba(0, 0, 0, 0.08) 0%,
+    rgba(0, 0, 0, 0.42) 62%,
+    rgba(0, 0, 0, 0.72) 100%
+  );
+  pointer-events: none;
+}
+
+/* Niebla animada (solo CSS; ligera) */
+.global-bg-fog {
+  opacity: 0.35;
+  background:
+    radial-gradient(ellipse 120% 80% at 30% 60%, rgba(245, 232, 210, 0.06), transparent 55%),
+    radial-gradient(ellipse 100% 70% at 70% 40%, rgba(120, 40, 30, 0.05), transparent 50%);
+  mix-blend-mode: soft-light;
+  animation: global-bg-fog-drift 32s ease-in-out infinite alternate;
+  will-change: transform, opacity;
+}
+
+@keyframes global-bg-fog-drift {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 0.28;
+  }
+  50% {
+    opacity: 0.42;
+  }
+  100% {
+    transform: translate3d(-2.5%, 1.5%, 0) scale(1.03);
+    opacity: 0.3;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .global-bg-fog {
+    animation: none;
+    opacity: 0.32;
+  }
+}
+
+/* Marco tipo manuscrito: doble línea + acentos dorados en esquinas (CSS puro) */
+.global-bg-manuscript {
+  box-shadow:
+    inset 0 0 0 1px rgba(201, 162, 39, 0.22),
+    inset 0 0 0 5px rgba(0, 0, 0, 0.35),
+    inset 0 0 0 6px rgba(201, 162, 39, 0.12),
+    inset 0 0 100px 24px rgba(0, 0, 0, 0.2);
+  background:
+    linear-gradient(to right, rgba(201, 162, 39, 0.14) 0, transparent 28px, transparent calc(100% - 28px), rgba(201, 162, 39, 0.14) 100%),
+    linear-gradient(to bottom, rgba(201, 162, 39, 0.14) 0, transparent 24px, transparent calc(100% - 24px), rgba(201, 162, 39, 0.14) 100%);
+  background-size: 100% 3px, 3px 100%;
+  background-position: top, left;
+  background-repeat: no-repeat;
+  pointer-events: none;
+}
+
+/* Partículas: canvas encima de capas, muy sutiles */
+.global-bg-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.55;
+  mix-blend-mode: screen;
 }
 
 .font-medieval {

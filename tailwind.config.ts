@@ -16,9 +16,9 @@ const config: Config = {
           gold: "#f4b544",
           red: "#b3262b",
           forest: "#234537",
-          "coffee-cream": "#120f16",
-          "coffee-mid": "#1c151f",
-          "coffee-dark": "#26151a",
+          "coffee-cream": "#1a0f0a",
+          "coffee-mid": "#2a1510",
+          "coffee-dark": "#3a1a12",
         },
       },
       fontFamily: {
