@@ -1,0 +1,48 @@
+.scroll-reveal {
+  opacity: 0;
+  transform: translate3d(0, 40px, 0);
+  transition-property: opacity, transform;
+  transition-duration: 0.7s;
+  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+.scroll-reveal.visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+/* Delays escalonados simples por clase */
+.scroll-reveal.delay-1 {
+  transition-delay: 0.1s;
+}
+.scroll-reveal.delay-2 {
+  transition-delay: 0.2s;
+}
+.scroll-reveal.delay-3 {
+  transition-delay: 0.3s;
+}
+.scroll-reveal.delay-4 {
+  transition-delay: 0.4s;
+}
+.scroll-reveal.delay-5 {
+  transition-delay: 0.5s;
+}
+
+/* Variantes opcionales por data-attribute */
+.scroll-reveal[data-animation="fade"] {
+  transform: translate3d(0, 0, 0);
+}
+
+.scroll-reveal[data-animation="slide"] {
+  transform: translate3d(0, 40px, 0);
+}
+
+.scroll-reveal[data-animation="scale"] {
+  transform: scale(0.92);
+}
+
+.scroll-reveal.visible[data-animation="scale"] {
+  transform: scale(1);
+}
+

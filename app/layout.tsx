@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { getSession } from "@/lib/auth";
 import { AppShell } from "@/components/app-shell";
 import "./globals.css";
+import "../styles/scrollReveal.css";
 
 export const metadata: Metadata = {
   title: "Mea Culpa - Inventario",

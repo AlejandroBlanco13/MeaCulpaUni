@@ -20,6 +20,8 @@ interface ScrollSectionProps {
   animation?: ScrollAnimation;
   sticky?: boolean;
   minHeightClass?: string;
+  /** Clase para el contenedor interior (ej. max-w-7xl para más ancho) */
+  innerClassName?: string;
 }
 
 export function ScrollSection({
@@ -30,6 +32,7 @@ export function ScrollSection({
   animation = "fade-up",
   sticky = false,
   minHeightClass = "min-h-screen",
+  innerClassName,
 }: ScrollSectionProps) {
   const ref = useRef<HTMLDivElement | null>(null);
   const { scrollYProgress } = useScroll({
@@ -91,9 +94,9 @@ export function ScrollSection({
           viewport={{ once: false, amount: 0.4 }}
           variants={variants}
           className={cn(
-            sticky
-              ? "sticky top-24 mx-auto flex w-full max-w-4xl items-center justify-center py-24"
-              : "mx-auto flex w-full max-w-4xl items-center justify-center py-24",
+            "mx-auto flex w-full items-center justify-center py-16 lg:py-24",
+            sticky ? "sticky top-16 lg:top-20" : "",
+            innerClassName ?? "max-w-4xl px-6",
           )}
         >
           {children}

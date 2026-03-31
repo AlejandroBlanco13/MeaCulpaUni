@@ -8,7 +8,6 @@ import type { SessionUser } from "@/lib/auth";
 import {
   LogIn,
   LogOut,
-  UserPlus,
   Menu,
   X,
   Package,
@@ -18,19 +17,25 @@ import {
   Coins,
   Swords,
   Shield,
+  ScrollText,
+  UsersRound,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
+/** Nombres al estilo mesa D&D; rutas sin cambiar */
 const nav = [
-  { href: "/", label: "Inicio", icon: Swords },
-  { href: "/inventario", label: "Inventario", icon: Package },
-  { href: "/noticias", label: "Noticias", icon: Newspaper },
-  { href: "/personajes", label: "Personajes", icon: Users },
-  { href: "/tiendas", label: "Tiendas", icon: Store },
-  { href: "/gremios", label: "Gremios", icon: Users },
-  { href: "/economia", label: "Economía", icon: Coins },
-  { href: "/nivel", label: "Nivel", icon: Shield },
+  { href: "/", label: "Mesa", icon: Swords },
+  { href: "/cronicas", label: "Crónicas", icon: ScrollText },
+  { href: "/personajes", label: "Héroes", icon: Users },
+  { href: "/inventario", label: "Equipo", icon: Package },
+  { href: "/nivel", label: "Progreso", icon: Shield },
+  { href: "/economia", label: "Tesorería", icon: Coins },
+  { href: "/gremios", label: "Compañía", icon: UsersRound },
+  { href: "/tiendas", label: "Mercaderes", icon: Store },
+  { href: "/noticias", label: "Rumores", icon: Newspaper },
 ];
+
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 export function AppShell({
   session,
@@ -42,6 +47,13 @@ export function AppShell({
   const router = useRouter();
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
+
+  useScrollReveal();
+
+  /* La mesa (/) lleva su propia cabecera estilo landing; el resto usa menú hamburguesa */
+  if (pathname === "/leyenda" || pathname === "/login" || pathname === "/") {
+    return <>{children}</>;
+  }
 
   async function handleSignOut() {
     const supabase = createClient();
@@ -117,14 +129,6 @@ export function AppShell({
                     >
                       <LogIn className="w-4 h-4" />
                       Entrar
-                    </Link>
-                    <Link
-                      href="/registro"
-                      onClick={() => setMenuOpen(false)}
-                      className="btn-gold flex items-center justify-center gap-2 px-3 py-2 rounded-md"
-                    >
-                      <UserPlus className="w-4 h-4" />
-                      Registrarse
                     </Link>
                   </>
                 )}
