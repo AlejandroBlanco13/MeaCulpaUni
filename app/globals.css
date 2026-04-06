@@ -492,6 +492,20 @@ body {
     letter-spacing: 0.05em;
   }
 
+  @keyframes newspaper-page-turn {
+    from {
+      opacity: 0.25;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  .newspaper-spread-page {
+    animation: newspaper-page-turn 0.38s ease-out;
+  }
+
   /* ======================= */
   /* Tarjetas 3D interactivas */
   /* ======================= */

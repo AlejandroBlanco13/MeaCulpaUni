@@ -3,8 +3,8 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Plus, X } from "lucide-react";
-
-const CLASSES = ["Guerrero", "Mago", "Ladron", "Clerigo", "Explorador", "Bardo"];
+import { CharacterClassPicker } from "@/components/character-class-picker";
+import { CharacterHeroPreview } from "@/components/character-hero-preview";
 
 type Props = {
   triggerLabel: string;
@@ -34,6 +34,10 @@ export function CreateCharacterModal({ triggerLabel, className }: Props) {
     const trimmedName = name.trim();
     if (!trimmedName) {
       setError("El nombre del personaje es obligatorio.");
+      return;
+    }
+    if (!classType) {
+      setError("Elige la clase tocando el retrato del heroe.");
       return;
     }
 
@@ -78,7 +82,7 @@ export function CreateCharacterModal({ triggerLabel, className }: Props) {
             role="dialog"
             aria-modal="true"
             aria-label="Crear personaje"
-            className="w-full max-w-lg card-parchment p-7 sm:p-8 shadow-2xl"
+            className="w-full max-w-5xl card-parchment p-6 shadow-2xl sm:p-8"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="mb-6 flex items-start justify-between gap-4">
@@ -96,6 +100,17 @@ export function CreateCharacterModal({ triggerLabel, className }: Props) {
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-4" noValidate>
+              <p className="text-sm text-dnd-ink/70">
+                A la izquierda ves la <strong>vista previa</strong> como quedará en el registro. A la derecha, nombre y
+                galería de retratos.
+              </p>
+
+              <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:gap-8">
+                <aside className="mx-auto w-full max-w-[280px] shrink-0 lg:sticky lg:top-4 lg:mx-0">
+                  <CharacterHeroPreview classValue={classType} heroName={name} />
+                </aside>
+
+                <div className="min-w-0 flex-1 space-y-4">
               <div>
                 <label htmlFor="hero-name" className="mb-1 block text-sm font-medium text-dnd-ink">
                   Nombre del personaje
@@ -113,23 +128,19 @@ export function CreateCharacterModal({ triggerLabel, className }: Props) {
               </div>
 
               <div>
-                <label htmlFor="hero-class" className="mb-1 block text-sm font-medium text-dnd-ink">
-                  Clase
-                </label>
-                <select
+                <p className="mb-2 block text-sm font-medium text-dnd-ink">Clase y retrato</p>
+                <p className="mb-3 text-xs text-dnd-ink/65">
+                  Toca un retrato para asignar la clase; la misma imagen se usa en las tarjetas del listado.
+                </p>
+                <CharacterClassPicker
                   id="hero-class"
                   value={classType}
-                  onChange={(e) => setClassType(e.target.value)}
+                  onChange={setClassType}
                   disabled={loading}
-                  className="w-full rounded border-2 border-dnd-ink/20 bg-white px-3 py-2 text-[#1a120f] focus:border-dnd-gold focus:outline-none"
-                >
-                  <option value="">Elegir...</option>
-                  {CLASSES.map((c) => (
-                    <option key={c} value={c}>
-                      {c}
-                    </option>
-                  ))}
-                </select>
+                  showPreview={false}
+                />
+              </div>
+                </div>
               </div>
 
               {error && <p className="text-sm text-dnd-red">{error}</p>}
