@@ -6,6 +6,8 @@ import Link from "next/link";
 import { Users, Lock, Shield, Trophy, Sparkles, ArrowLeft } from "lucide-react";
 import { CreateCharacterModal } from "@/components/create-character-modal";
 import { CharacterActions } from "@/components/character-actions";
+import Image from "next/image";
+import { getPortraitForClass, normalizeClassLabelForStats } from "@/lib/character-classes";
 
 type HeroTier = {
   key: "iniciado" | "veterano" | "elite" | "legendario";
@@ -52,7 +54,7 @@ export default async function PersonajesPage() {
   const canCreateFree = freeUsed < FREE_CHARACTER_SLOTS;
   const paidCount = list.filter((c) => !c.is_free_slot).length;
   const classCount = list.reduce<Record<string, number>>((acc, c) => {
-    const k = c.class_type?.trim() || "Sin clase";
+    const k = normalizeClassLabelForStats(c.class_type);
     acc[k] = (acc[k] ?? 0) + 1;
     return acc;
   }, {});
@@ -150,12 +152,21 @@ export default async function PersonajesPage() {
                   </div>
                   <ul className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
                     {items.map((c) => (
-                      <li key={c.id} className="card-parchment rounded-md p-5 sm:p-6">
-                        <div className="flex items-start justify-between gap-2">
-                          <div className="min-w-0">
+                      <li key={c.id} className="card-parchment rounded-md overflow-hidden">
+                        <div className="flex flex-col sm:flex-row sm:items-stretch">
+                          <div className="relative aspect-[4/5] w-full shrink-0 sm:w-40 sm:aspect-auto sm:min-h-[180px]">
+                            <Image
+                              src={getPortraitForClass(c.class_type)}
+                              alt=""
+                              fill
+                              className="object-cover object-top"
+                              sizes="(max-width: 640px) 100vw, 160px"
+                            />
+                          </div>
+                          <div className="min-w-0 flex-1 p-5 sm:p-6">
                             <h2 className="font-medieval text-xl sm:text-2xl font-semibold text-dnd-ink truncate">{c.name}</h2>
                             <p className="text-sm sm:text-base text-dnd-ink/70 mt-1">
-                              {c.class_type ?? "Sin clase"} · Nivel {c.level}
+                              {normalizeClassLabelForStats(c.class_type)} · Nivel {c.level}
                             </p>
                             <p className={`text-xs sm:text-sm mt-2 ${getTier(c.level).color}`}>
                               ELO: {getTier(c.level).label}
@@ -200,7 +211,7 @@ export default async function PersonajesPage() {
               </div>
             )}
             {!canCreateFree && (
-              <div className="card-parchment rounded-md border border-dnd-gold/40 p-4 sm:p-5">
+              <div className="card-parchment mt-10 rounded-md border border-dnd-gold/40 p-4 sm:mt-12 sm:p-5">
                 <p className="text-dnd-ink/85 text-sm sm:text-base">
                   Has usado tus 2 personajes gratis. Para más personajes, desbloquea la suscripción de pago.
                 </p>

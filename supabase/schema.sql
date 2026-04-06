@@ -233,11 +233,7 @@ create policy "Products update admin"
     (select role from public.profiles where id = auth.uid()) = 'admin'
   );
 
--- Insertar noticia y tienda de ejemplo (opcional)
-insert into public.news (title, slug, content, published)
-values ('Bienvenidos a Mea Culpa', 'bienvenida', 'Bienvenidos al campamento. Aquí podréis gestionar inventario, uniros a gremios y visitar las tiendas.', true)
-on conflict (slug) do nothing;
-
+-- Insertar tienda de ejemplo (opcional)
 insert into public.stores (name, slug, description, is_active)
 values ('Tienda del Reino', 'tienda-del-reino', 'Armas, armaduras y provisiones para aventureros.', true)
 on conflict (slug) do nothing;

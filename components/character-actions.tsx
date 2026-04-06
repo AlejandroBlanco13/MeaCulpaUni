@@ -1,8 +1,10 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import Image from "next/image";
 import { Eye, Sword, Shield, Sparkles, Heart, ArrowUp, X } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { getPortraitForClass, normalizeClassLabelForStats } from "@/lib/character-classes";
 
 type CharacterActionsProps = {
   character: {
@@ -27,17 +29,23 @@ type ClassStats = {
 };
 
 const CLASS_BASE: Record<string, ClassStats> = {
-  Guerrero: { hp: 120, mana: 30, atk: 16, def: 14, spd: 8 },
-  Mago: { hp: 75, mana: 120, atk: 19, def: 7, spd: 10 },
-  Ladron: { hp: 90, mana: 45, atk: 14, def: 9, spd: 16 },
-  Clerigo: { hp: 100, mana: 90, atk: 12, def: 12, spd: 9 },
-  Explorador: { hp: 95, mana: 55, atk: 15, def: 10, spd: 13 },
-  Bardo: { hp: 88, mana: 80, atk: 11, def: 9, spd: 14 },
   "Sin clase": { hp: 85, mana: 50, atk: 12, def: 10, spd: 10 },
+  Bárbaro: { hp: 135, mana: 22, atk: 17, def: 12, spd: 9 },
+  Bardo: { hp: 88, mana: 85, atk: 11, def: 9, spd: 14 },
+  Brujo: { hp: 82, mana: 105, atk: 13, def: 8, spd: 10 },
+  Clérigo: { hp: 102, mana: 92, atk: 12, def: 13, spd: 9 },
+  Druida: { hp: 98, mana: 88, atk: 13, def: 11, spd: 11 },
+  Explorador: { hp: 96, mana: 58, atk: 15, def: 10, spd: 14 },
+  Guerrero: { hp: 122, mana: 32, atk: 16, def: 14, spd: 9 },
+  Hechicero: { hp: 78, mana: 118, atk: 18, def: 8, spd: 10 },
+  Mago: { hp: 74, mana: 122, atk: 18, def: 7, spd: 9 },
+  Monje: { hp: 92, mana: 55, atk: 14, def: 11, spd: 17 },
+  Paladín: { hp: 110, mana: 70, atk: 14, def: 15, spd: 8 },
+  Pícaro: { hp: 90, mana: 48, atk: 14, def: 9, spd: 16 },
 };
 
 function getStats(classType: string | null, level: number) {
-  const normalizedClass = classType?.trim() || "Sin clase";
+  const normalizedClass = normalizeClassLabelForStats(classType);
   const base = CLASS_BASE[normalizedClass] ?? CLASS_BASE["Sin clase"];
   return {
     hp: base.hp + level * 12,
@@ -59,8 +67,8 @@ export function CharacterActions({ character, inventoryItems }: CharacterActions
   const [loadingLevel, setLoadingLevel] = useState(false);
   const [error, setError] = useState("");
 
-  const classType = character.class_type?.trim() || "Sin clase";
-  const stats = useMemo(() => getStats(classType, level), [classType, level]);
+  const displayClass = normalizeClassLabelForStats(character.class_type);
+  const stats = useMemo(() => getStats(character.class_type, level), [character.class_type, level]);
   const xpNext = useMemo(() => getXpForNextLevel(level), [level]);
 
   async function handleLevelUp() {
@@ -124,12 +132,23 @@ export function CharacterActions({ character, inventoryItems }: CharacterActions
             onClick={(e) => e.stopPropagation()}
           >
             <div className="mb-4 flex items-start justify-between gap-4">
-              <div>
+              <div className="flex min-w-0 flex-1 gap-4">
+                <div className="relative h-28 w-20 shrink-0 overflow-hidden rounded-md border border-dnd-ink/20 bg-black/30 sm:h-32 sm:w-24">
+                  <Image
+                    src={getPortraitForClass(character.class_type)}
+                    alt=""
+                    fill
+                    className="object-cover object-top"
+                    sizes="96px"
+                  />
+                </div>
+                <div className="min-w-0">
                 <p className="text-xs uppercase tracking-[0.2em] text-dnd-ink/60">Ficha del heroe</p>
                 <h3 className="font-medieval text-2xl text-dnd-ink">{character.name}</h3>
                 <p className="text-sm text-dnd-ink/70">
-                  Clase: {classType} · Nivel actual: {level}
+                  Clase: {displayClass} · Nivel actual: {level}
                 </p>
+                </div>
               </div>
               <button
                 type="button"
