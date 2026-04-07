@@ -217,6 +217,8 @@ create table if not exists public.wallet_transactions (
   reference_id text,
   created_at timestamptz not null default now()
 );
+-- Tipos usados por la app: purchase, bank_deposit, bank_loan_disbursed, bank_loan_repayment,
+-- bank_fund_request, external_match_income (type es text libre; índices en economia_banco_wallet.sql)
 
 alter table public.wallet_transactions enable row level security;
 create policy "Wallet own"

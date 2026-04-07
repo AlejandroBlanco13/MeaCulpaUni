@@ -24,7 +24,8 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
+  // No ejecutar Supabase en assets de Next (CSS/JS); evita trabajo extra y posibles rarezas en dev.
   matcher: [
-    "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
+    "/((?!_next/|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
   ],
 };
