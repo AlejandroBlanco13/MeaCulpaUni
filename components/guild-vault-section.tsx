@@ -71,7 +71,7 @@ export function VaultSection({
             value={itemId}
             onChange={(e) => setItemId(e.target.value)}
             placeholder="item-1"
-            className="w-32 px-2 py-1 border border-dnd-ink/20 rounded bg-white text-dnd-ink text-sm"
+            className="w-32 px-2 py-1 border border-dnd-ink/20 rounded bg-white text-black placeholder:text-neutral-500 text-sm"
           />
         </div>
         <div>
@@ -81,7 +81,7 @@ export function VaultSection({
             min={1}
             value={quantity}
             onChange={(e) => setQuantity(Number(e.target.value) || 1)}
-            className="w-20 px-2 py-1 border border-dnd-ink/20 rounded bg-white text-dnd-ink text-sm"
+            className="w-20 px-2 py-1 border border-dnd-ink/20 rounded bg-white text-black placeholder:text-neutral-500 text-sm"
           />
         </div>
         <button type="submit" className="btn-gold py-1 px-3 text-sm">

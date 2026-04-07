@@ -123,7 +123,7 @@ export function CreateCharacterModal({ triggerLabel, className }: Props) {
                   required
                   disabled={loading}
                   autoFocus
-                  className="w-full rounded border-2 border-dnd-ink/20 bg-white px-3 py-2 text-[#1a120f] placeholder:text-[#6b6259] focus:border-dnd-gold focus:outline-none"
+                  className="w-full rounded border-2 border-dnd-ink/20 bg-white px-3 py-2 text-black placeholder:text-neutral-500 focus:border-dnd-gold focus:outline-none"
                 />
               </div>
 

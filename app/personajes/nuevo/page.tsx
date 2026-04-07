@@ -68,7 +68,7 @@ export default function NuevoPersonajePage() {
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
-              className="w-full px-3 py-2 border-2 border-dnd-ink/20 rounded bg-white text-dnd-ink"
+              className="w-full px-3 py-2 border-2 border-dnd-ink/20 rounded bg-white text-black placeholder:text-neutral-500"
             />
           </div>
           <div>

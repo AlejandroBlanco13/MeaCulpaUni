@@ -70,7 +70,7 @@ export function MessageList({ guildId, userId }: { guildId: string; userId: stri
           value={newMessage}
           onChange={(e) => setNewMessage(e.target.value)}
           placeholder="Escribe un mensaje..."
-          className="flex-1 px-3 py-2 border-2 border-dnd-ink/20 rounded bg-white text-dnd-ink"
+          className="flex-1 px-3 py-2 border-2 border-dnd-ink/20 rounded bg-white text-black placeholder:text-neutral-500"
           maxLength={500}
         />
         <button type="submit" className="btn-gold py-2 px-4">

@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { createPortal } from "react-dom";
-import { Bookmark, ChevronLeft, ChevronRight, Maximize2, X } from "lucide-react";
+import { Bookmark, ChevronLeft, ChevronRight, X } from "lucide-react";
 import type { StaticImageData } from "next/image";
 import dnd1 from "@/app/IMG/Homepage/DND-Notices/DND1.jpg";
 import dnd2 from "@/app/IMG/Homepage/DND-Notices/DND2.jpg";
@@ -134,16 +134,14 @@ function EditionSheet({ edition, pageIndex, totalSheets, showEmptyBoardHint, onI
           <div className="relative h-full min-h-[36vh] w-full sm:min-h-[42vh]">
             <button
               type="button"
-              onClick={() => onIllustrationClick(edition)}
-              className="absolute inset-0 z-20 cursor-zoom-in touch-manipulation rounded-sm border border-white/20 bg-transparent hover:bg-white/10 active:bg-white/15 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#c9a227] focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
+              onClick={(e) => {
+                onIllustrationClick(edition);
+                /* Evita que el anillo :focus-visible (teclado/ratón) quede pintado tras abrir el modal */
+                e.currentTarget.blur();
+              }}
+              className="absolute inset-0 z-20 cursor-zoom-in touch-manipulation rounded-sm border-0 bg-transparent hover:bg-white/10 active:bg-white/15 focus:outline-none focus-visible:ring-1 focus-visible:ring-inset focus-visible:ring-white/35"
               aria-label={`Ampliar ilustración: ${edition.title}`}
             />
-            <div className="pointer-events-none absolute inset-x-0 bottom-4 z-30 flex flex-col items-center gap-1">
-              <Maximize2 className="h-7 w-7 text-[#f4e4bc]/90 drop-shadow-md" aria-hidden />
-              <span className="max-w-[16rem] text-center font-medieval text-[10px] uppercase tracking-[0.18em] text-[#e8dcc4] drop-shadow-md sm:text-[11px]">
-                Toca la ilustración para verla en grande
-              </span>
-            </div>
           </div>
 
           <div className="relative z-40 mt-4 shrink-0 rounded-sm border border-[#c9a227]/30 bg-black/70 px-4 py-4 shadow-lg backdrop-blur-sm sm:px-6 sm:py-5">
@@ -232,8 +230,11 @@ function NewsSheet({
                   {n.image_url && (
                     <button
                       type="button"
-                      onClick={() => onImageClick(n)}
-                      className="group/img relative z-10 mt-3 block aspect-[16/10] w-full cursor-zoom-in touch-manipulation overflow-hidden rounded border border-black/30 text-left transition ring-offset-2 ring-offset-[#f4efe4] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#8b6914]"
+                      onClick={(e) => {
+                        onImageClick(n);
+                        e.currentTarget.blur();
+                      }}
+                      className="group/img relative z-10 mt-3 block aspect-[16/10] w-full cursor-zoom-in touch-manipulation overflow-hidden rounded border border-black/30 text-left transition focus:outline-none focus-visible:ring-1 focus-visible:ring-inset focus-visible:ring-black/25"
                       aria-label={`Ampliar noticia: ${n.title}`}
                     >
                       <Image

@@ -163,7 +163,7 @@ export function InventoryHeroManager({ heroes, items }: Props) {
             id="hero-filter"
             value={filterHeroId}
             onChange={(e) => setFilterHeroId(e.target.value)}
-            className="min-w-[260px] rounded border border-dnd-ink/25 bg-white px-3 py-2 text-sm text-dnd-ink"
+            className="min-w-[260px] rounded border border-dnd-ink/25 bg-white px-3 py-2 text-sm text-black placeholder:text-neutral-500"
           >
             <option value="all">Todos los objetos</option>
             <option value="unassigned">Sin asignar</option>
@@ -231,7 +231,7 @@ export function InventoryHeroManager({ heroes, items }: Props) {
                         [item.id]: e.target.value,
                       }))
                     }
-                    className="w-full rounded border border-dnd-ink/25 bg-white px-2.5 py-2 text-sm text-dnd-ink"
+                    className="w-full rounded border border-dnd-ink/25 bg-white px-2.5 py-2 text-sm text-black placeholder:text-neutral-500"
                   >
                     <option value="">Sin asignar</option>
                     {heroes.map((hero) => (

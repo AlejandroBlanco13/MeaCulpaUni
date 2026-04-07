@@ -43,7 +43,7 @@ export function EditarTiendaForm({ store }: { store: Store }) {
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="w-full px-3 py-2 border-2 border-dnd-ink/20 rounded bg-white text-dnd-ink"
+            className="w-full px-3 py-2 border-2 border-dnd-ink/20 rounded bg-white text-black placeholder:text-neutral-500"
           />
         </div>
         <div>
@@ -52,7 +52,7 @@ export function EditarTiendaForm({ store }: { store: Store }) {
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             rows={3}
-            className="w-full px-3 py-2 border-2 border-dnd-ink/20 rounded bg-white text-dnd-ink"
+            className="w-full px-3 py-2 border-2 border-dnd-ink/20 rounded bg-white text-black placeholder:text-neutral-500"
           />
         </div>
         <div>
@@ -62,7 +62,7 @@ export function EditarTiendaForm({ store }: { store: Store }) {
             value={imageUrl}
             onChange={(e) => setImageUrl(e.target.value)}
             placeholder="https://..."
-            className="w-full px-3 py-2 border-2 border-dnd-ink/20 rounded bg-white text-dnd-ink"
+            className="w-full px-3 py-2 border-2 border-dnd-ink/20 rounded bg-white text-black placeholder:text-neutral-500"
           />
         </div>
         <button type="submit" disabled={saving} className="btn-gold py-2 px-4">
@@ -120,7 +120,7 @@ function EditarProductoForm({
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="w-full px-2 py-1 border border-dnd-ink/20 rounded bg-white text-dnd-ink text-sm"
+            className="w-full px-2 py-1 border border-dnd-ink/20 rounded bg-white text-black placeholder:text-neutral-500 text-sm"
           />
         </div>
         <div>
@@ -130,7 +130,7 @@ function EditarProductoForm({
             min={0}
             value={price}
             onChange={(e) => setPrice(Number(e.target.value) || 0)}
-            className="w-full px-2 py-1 border border-dnd-ink/20 rounded bg-white text-dnd-ink text-sm"
+            className="w-full px-2 py-1 border border-dnd-ink/20 rounded bg-white text-black placeholder:text-neutral-500 text-sm"
           />
         </div>
       </div>
@@ -140,7 +140,7 @@ function EditarProductoForm({
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           rows={2}
-          className="w-full px-2 py-1 border border-dnd-ink/20 rounded bg-white text-dnd-ink text-sm"
+          className="w-full px-2 py-1 border border-dnd-ink/20 rounded bg-white text-black placeholder:text-neutral-500 text-sm"
         />
       </div>
       <div className="flex flex-wrap gap-3 items-end">
@@ -150,7 +150,7 @@ function EditarProductoForm({
             type="url"
             value={imageUrl}
             onChange={(e) => setImageUrl(e.target.value)}
-            className="w-48 px-2 py-1 border border-dnd-ink/20 rounded bg-white text-dnd-ink text-sm"
+            className="w-48 px-2 py-1 border border-dnd-ink/20 rounded bg-white text-black placeholder:text-neutral-500 text-sm"
           />
         </div>
         <div>
@@ -160,7 +160,7 @@ function EditarProductoForm({
             min={0}
             value={stock}
             onChange={(e) => setStock(Number(e.target.value) || 0)}
-            className="w-20 px-2 py-1 border border-dnd-ink/20 rounded bg-white text-dnd-ink text-sm"
+            className="w-20 px-2 py-1 border border-dnd-ink/20 rounded bg-white text-black placeholder:text-neutral-500 text-sm"
           />
         </div>
         <button type="submit" disabled={saving} className="btn-gold py-1 px-3 text-sm">
